@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Tasky
+  labels:
+    app: Tasky
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: Tasky
+  template:
+    metadata:
+      labels:
+        app: Tasky
+    spec:
+      containers:
+        - name: Tasky
+          image: XXXXXXXX.dkr.ecr.us-east-2.amazonaws.com/Tasky:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
