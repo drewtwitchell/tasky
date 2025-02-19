@@ -37,10 +37,12 @@ jobs:
       run: |
         docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
         docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+  
   deploy:
+    needs: build_and_push
     runs-on: ubuntu-latest
     steps:
-      
+  
     - name: Update kube config
       run: aws eks --region us-east-1 update-kubeconfig --name ${{ vars.EKS_CLUSTER }}
     
