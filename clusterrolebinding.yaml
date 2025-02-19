@@ -5,7 +5,7 @@ metadata:
   name: github-oidc-cluster-role-binding
 subjects:
 - kind: User
-  name: arn:aws:iam::051826699895:role/eks-oidc-github-action # Name is case sensitive
+  name: github-oidc-auth-user # Name is case sensitive
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
