@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: Tasky
-          image: XXXXXXXX.dkr.ecr.us-east-2.amazonaws.com/Tasky:latest
+          image: ${{ env.ECR_NAME }}:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
