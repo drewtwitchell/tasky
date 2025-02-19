@@ -1,0 +1,22 @@
+apiVersion: v1
+data:
+  mapRoles: |
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam::051826699895:role/node-group-1-eks-node-group-20250219184304493000000001
+      username: system:node:{{EC2PrivateDNSName}}  
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam::051826699895:role/node-group-2-eks-node-group-20250219184304493200000002
+      username: system:node:{{EC2PrivateDNSName}}
+    - rolearn: arn:aws:iam::051826699895:role/eks-oidc-github-action
+      username: github-oidc-auth-user
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2025-02-19T19:08:29Z"
+  name: aws-auth
+  namespace: kube-system
+  resourceVersion: "1113"
+  uid: 710f6b05-4ca4-403b-950e-45a51a703a3d
