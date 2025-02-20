@@ -1,11 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tasky
-  namespace: tasky
-  labels:
-    app: tasky
+  name: tasky-deployment
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: tasky
@@ -15,11 +13,20 @@ spec:
         app: tasky
     spec:
       containers:
-      - name: tasky
-        image: public.ecr.aws/z9n5c1x0/pse/task:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8080
-      imagePullSecrets:
-          - name: regcred
+        - name: tasky-container
+          image: ${{ vars.IMAGE_NAME }}:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: tasky-secrets
+                  key: MONGODB_URI
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tasky-secrets
+                  key: SECRET_KEY
+
         

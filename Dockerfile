@@ -1,28 +1,37 @@
-# Building the binary of the App
-FROM golang:1.19 AS build
+# syntax=docker/dockerfile:1
 
-WORKDIR /go/src/tasky
-COPY . .
-RUN go mod download
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /go/src/tasky/tasky
+# Stage 1: Build the Go application
+FROM golang:1.19 AS builder
 
-# Create a .env file in the container
-WORKDIR /go/src/tasky
-COPY .env /app/tasky/.env
-
-ENV MONGO_DB_NAME=admin
-ENV SECRET_KEY=secret123
-ENV MONGODB_URI=mongodb://myUserAdmin:tasky123@44.211.89.250:27017/admin
-
-# Expose the MongoDB port
-EXPOSE 27017
-
-FROM alpine:3.17.0 as release
-
+# Set the Current Working Directory inside the container
 WORKDIR /app
-COPY --from=build  /go/src/tasky/tasky .
-COPY --from=build  /go/src/tasky/assets ./assets
+
+# Copy go.mod and go.sum files
+COPY go.mod go.sum ./
+
+# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
+RUN go mod download
+
+# Copy the source code into the container
+COPY . .
+
+# Build the Go application
+RUN CGO_ENABLED=0 GOOS=linux go build -o tasky .
+
+# Stage 2: Create a minimal image with the compiled binary
+FROM alpine:latest
+
+# Set the Current Working Directory inside the container
+WORKDIR /root/
+
+# Copy the binary from the builder stage
+COPY --from=builder /app/tasky .
+
+# Expose port 8080 to the outside world
 EXPOSE 8080
-ENTRYPOINT ["/app/tasky"]
+
+# Command to run the executable
+CMD ["./tasky"]
+
 
 
