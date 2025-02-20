@@ -6,7 +6,7 @@ metadata:
   labels:
     app: tasky
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: tasky
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: tasky
-        image: ${{ vars.ECR_NAME }}:latest
+        image: 051826699895.dkr.ecr.us-east-1.amazonaws.com/tasky:latest
         args: []
         ports:
         - containerPort: 8080
