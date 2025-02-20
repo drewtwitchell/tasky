@@ -62,5 +62,4 @@ jobs:
       
     - name: Deploy to EKS
       run: |
-            kubectl apply -f namespace-file.yaml
-            kubectl run tasky --image=${{ vars.ECR_NAME }}:latest --namespace tasky
+            kubectl apply -f deployment.yaml

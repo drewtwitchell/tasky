@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: tasky
+ namespace: tasky
+ labels:
+   name: tasky
+
+spec:
+  containers:
+  - name: tasky
+    image: ${{ vars.ECR_NAME }}:latest
+    ports:
+    - containerPort: 8080
