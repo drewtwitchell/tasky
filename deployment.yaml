@@ -1,14 +1,19 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
 metadata:
- name: tasky
- namespace: tasky
- labels:
-   name: tasky
-
+  name: tasky-deployment
+  namespace: tasky
 spec:
-  containers:
-  - name: tasky
-    image: ${{ vars.ECR_NAME }}:latest
-    ports:
-    - containerPort: 8080
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tasky
+  template:
+    metadata:
+      labels:
+        app: tasky
+    spec:
+      containers:
+      - name: tasky
+        image: ${{ vars.ECR_NAME }}:latest
+        ports:
+        - containerPort: 8080
