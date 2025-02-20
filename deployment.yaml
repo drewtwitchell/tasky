@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: tasky
-        image: ${{ vars.IMAGE_NAME }}:latest
+        image: public.ecr.aws/z9n5c1x0/pse/task:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
