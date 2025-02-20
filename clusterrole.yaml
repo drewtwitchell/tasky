@@ -4,6 +4,6 @@ metadata:
   # "namespace" omitted since ClusterRoles are not namespaced
   name: github-oidc-cluster-role
 rules:
-- apiGroups: [""]
+- apiGroups: ["rbac.authorization.k8s.io"]
   resources: ["*"]
   verbs: ["*"]
