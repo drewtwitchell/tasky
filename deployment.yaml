@@ -6,7 +6,6 @@ metadata:
   labels:
     app: tasky
 spec:
-  replicas: 0
   selector:
     matchLabels:
       app: tasky
