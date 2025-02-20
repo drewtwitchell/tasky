@@ -10,6 +10,10 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /go/src/tasky/tasky
 WORKDIR /go/src/tasky
 COPY .env /app/tasky/.env
 
+ENV MONGO_DB_NAME=admin
+ENV SECRET_KEY=secret123
+ENV MONGODB_URI=mongodb://myUserAdmin:tasky123@44.211.89.250:27017/admin
+
 # Expose the MongoDB port
 EXPOSE 27017
 
