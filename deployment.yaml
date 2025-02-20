@@ -17,8 +17,10 @@ spec:
     spec:
       containers:
       - name: tasky
-        image: 051826699895.dkr.ecr.us-east-1.amazonaws.com/tasky:latest
-        args: []
+        image: ${{ vars.ECR_NAME }}:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
+      imagePullSecreets:
+          - name: regcred
         
