@@ -15,7 +15,7 @@ import (
 var Client *mongo.Client = CreateMongoClient()
 
 func CreateMongoClient() *mongo.Client {
-	godotenv.Overload()
+	godotenv.Load(".env")
 	MongoDbURI := os.Getenv("MONGODB_URI")
 	client, err := mongo.NewClient(options.Client().ApplyURI(MongoDbURI))
 	if err != nil {
