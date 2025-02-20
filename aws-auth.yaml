@@ -9,9 +9,9 @@ kind: ConfigMap
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","data":{"mapRoles":"- groups:\n  - system:bootstrappers\n  - system:nodes\n  rolearn: arn:aws:iam::051826699895:role/node-group-1-eks-node-group-20250219184304493000000001\n  username: system:node:{{EC2PrivateDNSName}}  \n- groups:\n  - system:bootstrappers\n  - system:nodes\n  rolearn: arn:aws:iam::051826699895:role/node-group-2-eks-node-group-20250219184304493200000002\n  username: system:node:{{EC2PrivateDNSName}}\n- rolearn: arn:aws:iam::051826699895:role/eks-oidc-github-action\n  username: github-oidc-auth-user\n"},"kind":"ConfigMap","metadata":{"annotations":{},"creationTimestamp":"2025-02-19T19:08:29Z","name":"aws-auth","namespace":"kube-system","resourceVersion":"40175","uid":"710f6b05-4ca4-403b-950e-45a51a703a3d"}}
+      {"apiVersion":"v1","data":{"mapRoles":"- groups:\n  - system:bootstrappers\n  - system:nodes\n  rolearn: arn:aws:iam::051826699895:role/node-group-1-eks-node-group-20250219184304493000000001\n  username: system:node:{{EC2PrivateDNSName}}  \n- groups:\n  - system:bootstrappers\n  - system:nodes\n  rolearn: arn:aws:iam::051826699895:role/node-group-2-eks-node-group-20250219184304493200000002\n  username: system:node:{{EC2PrivateDNSName}}\n- rolearn: arn:aws:iam::051826699895:role/eks-oidc-github-action\n  username: github-oidc-auth-user\n"},"kind":"ConfigMap","metadata":{"annotations":{},"creationTimestamp":"2025-02-19T19:08:29Z","name":"aws-auth","namespace":"kube-system","resourceVersion":"41702","uid":"710f6b05-4ca4-403b-950e-45a51a703a3d"}}
   creationTimestamp: "2025-02-19T19:08:29Z"
   name: aws-auth
   namespace: kube-system
-  resourceVersion: "41702"
+  resourceVersion: "276703"
   uid: 710f6b05-4ca4-403b-950e-45a51a703a3d
