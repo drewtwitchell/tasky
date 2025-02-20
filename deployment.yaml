@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: tasky
-        image: ${{ vars.ECR_NAME }}:latest
+        image: ${{ vars.IMAGE_NAME }}:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
