@@ -8,5 +8,5 @@ rules:
   resources: ["*"]
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 - apiGroups: [""]
-  resources: ["apps"]
+  resources: ["apps/v1"]
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
