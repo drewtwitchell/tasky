@@ -7,6 +7,7 @@ RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /go/src/tasky/tasky
 
 # Create a .env file in the container
+WORKDIR /go/src/tasky
 COPY .env /etc/mongodb/
 
 # Expose the MongoDB port
