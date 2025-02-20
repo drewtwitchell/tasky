@@ -7,6 +7,6 @@ rules:
 - apiGroups: [""]
   resources: ["*"]
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-- apiGroups: [""]
-  resources: ["apps/v1"]
+- apiGroups: ["apps"]
+  resources: ["deployments"]
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
