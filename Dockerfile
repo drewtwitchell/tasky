@@ -6,6 +6,11 @@ COPY . .
 RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /go/src/tasky/tasky
 
+# Create a .env file in the container
+COPY .env /etc/mongodb/
+
+# Expose the MongoDB port
+EXPOSE 27017
 
 FROM alpine:3.17.0 as release
 
