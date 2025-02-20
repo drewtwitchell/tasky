@@ -66,4 +66,5 @@ jobs:
       
     - name: Deploy to EKS
       run: |
+            kubectl delete deployment tasky -n tasky
             kubectl apply -f deployment.yaml
