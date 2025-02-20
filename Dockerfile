@@ -8,7 +8,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /go/src/tasky/tasky
 
 # Create a .env file in the container
 WORKDIR /go/src/tasky
-COPY .env /app/.env
+COPY .env /app/tasky/.env
 
 # Expose the MongoDB port
 EXPOSE 27017
