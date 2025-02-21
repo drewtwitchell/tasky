@@ -1,37 +1,19 @@
-# syntax=docker/dockerfile:1
+# Building the binary of the App
+FROM golang:1.19 AS build
 
-# Stage 1: Build the Go application
-FROM golang:1.19 AS builder
-
-# Set the Current Working Directory inside the container
-WORKDIR /app
-
-# Copy go.mod and go.sum files
-COPY go.mod go.sum ./
-
-# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
-RUN go mod download
-
-# Copy the source code into the container
+WORKDIR /go/src/tasky
 COPY . .
+RUN go mod download
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /go/src/tasky/tasky
 
-# Build the Go application
-RUN CGO_ENABLED=0 GOOS=linux go build -o tasky .
 
-# Stage 2: Create a minimal image with the compiled binary
-FROM alpine:latest
+FROM alpine:3.17.0 as release
 
-# Set the Current Working Directory inside the container
-WORKDIR /root/
-
-# Copy the binary from the builder stage
-COPY --from=builder /app/tasky .
-
-# Expose port 8080 to the outside world
+WORKDIR /app
+COPY --from=build  /go/src/tasky/tasky .
+COPY --from=build  /go/src/tasky/assets ./assets
 EXPOSE 8080
-
-# Command to run the executable
-CMD ["./tasky"]
+ENTRYPOINT ["/app/tasky"]
 
 
 
