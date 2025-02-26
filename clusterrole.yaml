@@ -12,4 +12,4 @@ rules:
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 - apiGroups: ["networking.k8s.io"]
   resources: ["ingresses"]
-  verbs: ["get", "list", "create", "update", "delete"]
+  verbs: ["get", "list", "create", "update", "delete", "patch"]
