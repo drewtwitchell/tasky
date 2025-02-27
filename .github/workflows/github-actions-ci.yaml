@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SCAN_PATH: "." # Set the relative path in the repo to build the image from
-      TAG: ${{ env.IMAGE_TAG }} # Set the tag to use for the image
+      TAG: $IMAGE_TAG # Set the tag to use for the image
       POLICY: "Default vulnerabilities policy" # Set the desired Wiz CLI policy to use
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -56,6 +56,10 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Check out repository
       uses: actions/checkout@v2
+    
+    - name: Read Image Version from File
+      id: image_version
+      run: echo "IMAGE_TAG=$(cat image_version.txt)" >> $GITHUB_ENV
 
     # It's possible to skip this step if this job is scheduled after an image-build job.
     # If that's the case, also set "Run wiz CLI docker image scan" step accordingly
@@ -111,7 +115,7 @@ jobs:
         REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
         REGISTRY_ALIAS: ${{ vars.REGISTRY_ALIAS }}
         REPOSITORY: ${{ vars.ECR_NAME }}
-        IMAGE_TAG: ${{ env.IMAGE_TAG }}
+        IMAGE_TAG: $IMAGE_TAG
       run: |
           docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
