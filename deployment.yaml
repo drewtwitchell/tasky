@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: tasky-container
-          image: public.ecr.aws/z9n5c1x0/pse/task:latest
+          image: public.ecr.aws/z9n5c1x0/pse/task:IMAGETAG
           ports:
             - containerPort: 8080
           env:
