@@ -64,7 +64,7 @@ jobs:
     # It's possible to skip this step if this job is scheduled after an image-build job.
     # If that's the case, also set "Run wiz CLI docker image scan" step accordingly
     - name: Build the Docker image
-      run: cd $SCAN_PATH && docker build . --tag $IMAGE_TAG # Configure to fit the params you use to build your image
+      run: cd $SCAN_PATH && docker build . --tag ${{ vars.ECR_NAME }}:$IMAGE_TAG # Configure to fit the params you use to build your image
 
     - name: Download Wiz CLI
       run: curl -o wizcli https://downloads.wiz.io/wizcli/latest/wizcli-linux-amd64 && chmod +x wizcli
@@ -76,10 +76,10 @@ jobs:
         WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
 
     - name: Run wiz-cli docker image scan
-      run: ./wizcli docker scan --image $IMAGE_TAG --policy "$POLICY"
+      run: ./wizcli docker scan --image ${{ vars.ECR_NAME }}:$IMAGE_TAG --policy "$POLICY"
       
     - name: Fetch digest of Docker image for Graph enrichment
-      run: ./wizcli docker tag --image $IMAGE_TAG
+      run: ./wizcli docker tag --image ${{ vars.ECR_NAME }}:$IMAGE_TAG
   
   build_and_push:
     runs-on: ubuntu-latest
@@ -115,7 +115,6 @@ jobs:
         REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
         REGISTRY_ALIAS: ${{ vars.REGISTRY_ALIAS }}
         REPOSITORY: ${{ vars.ECR_NAME }}
-        IMAGE_TAG: $IMAGE_TAG
       run: |
           docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
@@ -137,7 +136,7 @@ jobs:
 
     - name: Update Kubernetes Deployment with Image Tag
       run: |
-        sed -i "s/IMAGETAG/${IMAGE_TAG}/g" deployment.yaml
+        sed -i 's/IMAGETAG/'"${IMAGE_TAG}"'/g' deployment.yaml
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
