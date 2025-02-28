@@ -4,19 +4,19 @@ data:
     - groups:
       - system:bootstrappers
       - system:nodes
-      rolearn: arn:aws:iam::051826699895:role/node-group-1-eks-node-group-20250227225012503100000001
+      rolearn: arn:aws:iam::051826699895:role/node-group-2-eks-node-group-20250228144124877600000003
       username: system:node:{{EC2PrivateDNSName}}
     - groups:
       - system:bootstrappers
       - system:nodes
-      rolearn: arn:aws:iam::051826699895:role/node-group-2-eks-node-group-20250227225012503100000002
+      rolearn: arn:aws:iam::051826699895:role/node-group-1-eks-node-group-20250228144124875100000002
       username: system:node:{{EC2PrivateDNSName}}
     - rolearn: arn:aws:iam::051826699895:role/eks-oidc-github-action
       username: github-oidc-auth-user
 kind: ConfigMap
 metadata:
-  creationTimestamp: "2025-02-27T23:12:01Z"
+  creationTimestamp: "2025-02-28T14:52:34Z"
   name: aws-auth
   namespace: kube-system
-  resourceVersion: "1122"
-  uid: 192cf0be-3173-4897-8fec-adf84f793eb7
+  resourceVersion: "1142"
+  uid: 4e96af07-f26b-44f1-8b13-504a564ad9ad
